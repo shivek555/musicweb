@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>music player</title>
+    <link rel="stylesheet" href="../static/aa.css">
+    <link rel="icon" href="../static/img/OIG.jpeg">
+    <style>
+        .music{ 
+   display: list-item;     
+  }  
+    </style>
+</head>
+<body>
+    <div class="bg">
+        <!-- partial:index.partial.html -->
+        <link
+          href="https://fonts.googleapis.com/css?family=Lato:300,400,700"
+          rel="stylesheet"
+          type="text/css"
+        />
+        <div id="stars"></div>
+        <div id="stars"></div>
+        <div id="stars"></div>
+        <div id="stars"></div>
+        <div id="stars2"></div>
+        <div id="stars3"></div>
+      </div>
+  
+    <div class="bigcontainer">
+        <!-- -------------MENU------------ -->
+        <div class="menu">
+            <div class="container" class="new_container">
+                <div class="menu_left">
+                    <div ><img  class="img1" src="../static/img/newLogo.png" style="height: 45PX; margin-top:3px" class="logo" >
+                    </div>
+                </div>
+                
+                <div class="menu_right">
+                    <ul>
+                        <li><a href="http://127.0.0.1:5000/login">Sign In</a></li>
+      
+                        <li class="dropdown" id="list">
+                            <a class="dropbtn">Search</a>
+                            
+                            <div class="dropdown-content" style="overflow: scroll">
+                                <form id="searchForm">
+                                    <input type="text" id="searchInput" placeholder="Enter song or artist">
+                                    <button type="submit">Search</button>
+                                  </form>
+                                  <div id="results"></div>
+                                <a href="#A20" class="music">THIS IS WHAT HEARTBREAK FEELS LIKE </a>
+                                <a href="#A12" class="music">JAANE DE</a>
+                                <a href="#A21" class="music">You broke me first</a>
+                                <a href="#A19" class="music">MAA</a>
+                                <a href="#A01" class="music">HUN JAAVAN</a>
+                                <a href="#A22" class="music">SOMEONE YOU LOVED</a>
+                                <a href="#A02" class="music">JAANE NA DUNGA KAHIN</a>
+                                <a href="#A03" class="music">Kali-Kali-Zulfon-Ke</a>
+                                <a href="#A04" class="music">KYON</a>
+                                <a href="#A05" class="music">LAMBIYA JUDAIYAN</a>
+                                <a href="#A06" class="music">LAUTE NAHI</a>
+                                <a href="#A07" class="music">MEHERAM</a>
+                                <a href="#A08" class="music">MERE LIYE</a>
+                                <a href="#A09" class="music">Phiroon-Dhoondta-Maikada-Tauba-Tauba</a>
+                                <a href="#A10" class="music">Barsaat</a>
+                                <a href="#A11" class="music">DIL TOD DIYA</a>
+                                <a href="#A00" class="music">DIL KO THUJPE PYAAR</a>
+                                <a href="#A13" class="music">DIL TODNE KA RIWAZ HAI</a>
+                                <a href="#A14" class="music">MUJHKO DAAFNA KR WO JAB </a>
+                                <a href="#A15" class="music">MUJHE PEENE DO</a>
+                                <a href="#A16" class="music">LO AAYI BARSAAT </a>
+                                <a href="#A17" class="music"> TERE NAAL</a>
+                                <a href="#A18" class="music">YAARON SAB DUA KARO</a>
+                                <a href="#A24" class="music"> MAAZA</a>
+                                <a href="#A23" class="music">BEEGHI BEEGHI</a>
+                                <a href="#A25" class="music">RYTHM TO MY HEART</a>
+                                <a href="#A26"  class="music">YEH JISM</a>
+                            </div>
+                        </li>
+                        <li><a href="{{ url_for('aboutus') }}">About Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- -------------SONGS-------------- -->
+        <center>
+        <div class="songs" id="songContainer">
+            <div class="container">
+                <div ID="A20"  class="song song1" class="song-item">
+                    <center>
+                    <img  class="img" src="../static/img/download (8).jpeg" alt="">
+                    <p class="songname"> THIS IS WHAT HEARTBREAK FEELS LIKE</p>
+                    <p class="artist">JVKE</p>
+                    <audio controls
+onplay="pauseOthers(this)" src="../static/music/JVKE_-_this_is_what_heartbreak_feels_like_FlexyOkay.com.mp3"></audio>
+                    </center>
+                </div>
+                <div ID="A25"  class="song song1" class="song-item">
+                    <center>
+                    <img  class="img" src="../static/img/background.jpeg" alt="">
+                    <p class="songname">RYTHM TO MY HEART</p>
+                    <p class="artist">SHIVEK</p>
+                    <audio controls
+onplay="pauseOthers(this)" src="../static/music/rythym_to_heart.mp3"></audio>
+                    </center>
+                </div>
+                <div ID="A23"  class="song song1" class="song-item">
+                    <center>
+                    <img  class="img" src="../static/img/download (8).jpeg" alt="">
+                    <p class="songname"> BEEGHI BEEGHI</p>
+                    <p class="artist">JAMES</p>
+                    <audio controls
+onplay="pauseOthers(this)" src="../static/music/Bheegi Bheegi_192(Ghantalele.com).mp3"></audio>
+                    </center>
+                </div>
+                <div ID="A24"  class="song song1" class="song-item">
+                    <center>
+                    <img  class="img" src="../static/img/download (8).jpeg" alt="">
+                    <p class="songname"> MAAZA</p>
+                    <p class="artist">BPRAAK</p>
+                    <audio controls
+onplay="pauseOthers(this)" src="../static/music/Mazaa_192(PagalWorld).mp3"></audio>
+                    </center>
+                </div>
+                <div ID="A12"  class="song song1" class="song-item">
+                    <center>
+                    <img  class="img" src="../static/img/download.jpeg" alt="">
+                    <p class="songname"> Jaane De</p>
+                    <p class="artist">DARSHAN RAVAL</p>
+                    <audio controls
+onplay="pauseOthers(this)" src="../static/music/spotifydown.com - Jaane De.mp3"></audio>
+                    </center>
+                </div>
+                <div ID="A21"  class="song song1" class="song-item">
+                    <center>
+                    <img  class="img" src="../static/img/download (7).jpeg" alt="">
+                    <p class="songname"> YOU BROKE ME FIRST</p>
+                    <p class="artist">CONOR MAYNARD</p>
+                    <audio controls
+onplay="pauseOthers(this)" src="../static/music/Maynard_-_You_Broke_Me_First-CONNECTLOADED.COM.mp3"></audio>
+                    </center>
+                </div>
+                <div ID="A19"  class="song song1" class="song-item">
+                    <center><img  class="img" src="../static/img/144243-maa-darshan-raval-mp3-song-300.jpg" alt="">
+                    <p class="songname">MAA</p>
+                    <p class="artist">DARSHAN RAVAL</p>
+                    <audio controls
+onplay="pauseOthers(this)" src="../static/music/Maa - Darshan Raval.mp3"></audio></center>
+                </div>
+                <center>
+                <div ID="A01"  class="song song1" class="song-item">
+                    <img  class="img" src="../static/img/download (2).jpg" alt="">
+                    <p class="songname">HUN Jaavan</p>
+                    <p class="artist">ROMI</p>
+                    <audio controls
+onplay="pauseOthers(this)" src="../static/music/Hun Jaavan_192(Ghantalele.com).mp3"></audio>
+                </div>
+                </center>
+                <div ID="A22"  class="song song1" class="song-item">
+                    <img  class="img" src="../static/img/download (9).jpeg" alt="">
+                    <p class="songname"> SOMEONE YOU LOVED</p>
+                    <p class="artist">LEWIS CAPALADI</p>
+                    <audio controls
+onplay="pauseOthers(this)" src="../static/music/Someone-You-Loved_320(PagalWorld).mp3"></audio>
+                </div>
+                <div ID="A02"  class="song song1" class="song-item">
+                    <img  class="img" src="../static/img/download (6).jpeg" alt="">
+                    <p class="songname">Jaane Na Dunga Kahin</p>
+                    <p class="artist">ARMAAN MALIK</p>
+                    <audio controls
+onplay="pauseOthers(this)" src="../static/music/Jaane Na Dunga Kahin - Armaan Malik 128 Kbps.mp3"></audio>
+                </div>
+
+                <div ID="A03"  class="song song1" class="song-item">
+                    <img  class="img" src="../static/img/download (4).jpg" alt="">
+                    <p class="songname">Kali-Kali-Zulfon-Ke</p>
+                    <p class="artist">MADHUR SHARMA</p>
+                    <audio controls
+onplay="pauseOthers(this)"preload="auto" src="../static/music/Kali-Kali-Zulfon-Ke(PagalWorld).mp3"></audio>
+                </div>
+
+                <div ID="A04"  class="song song1" class="song-item">
+                    <img  class="img" src="../static/img/download.jpg" alt="">
+                    <p class="songname">Kyon</p>
+                    <p class="artist">B PRAAK</p>
+                    <audio controls
+onplay="pauseOthers(this)"preload="auto" src="../static/music/Kyon - B Praak 128 Kbps.mp3"></audio>
+                </div>
+
+                <div ID="A05"  class="song song1" class="song-item">
+                    <img  class="img" src="../static/img/download (1).jpeg" alt="">
+                    <p class="songname">Lambiya Judaiyan</p>
+                    <p class="artist">BILAL SAEED</p>
+                    <audio controls
+onplay="pauseOthers(this)" src="../static/music/Lambiya Judaiyan - Bilal Saeed.mp3"></audio>
+                </div>
+
+                <div ID="A06"  class="song song1" class="song-item">
+                    <img  class="img" src="../static/img/Broken-but-Beautiful-Season-3-Hindi-2021-20210610131003-500x500.jpg" alt="">
+                    <p class="songname">LAUTE NAHI</p>
+                    <p class="artist">PAPON</p>
+                    <audio controls
+onplay="pauseOthers(this)" src="../static/music/Laute-Nahi-Papon.mp3"></audio>
+                </div>
+
+                <div ID="A07"  class="song song1" class="song-item">
+                    <img  class="img" src="../static/img/78800372_300x300.jpg" alt="">
+                    <p class="songname">MEHRAM</p>
+                    <p class="artist">SACHET TODAN</p>
+                    <audio controls
+onplay="pauseOthers(this)" src="../static/music/Mehram-MassTamilan.dev.mp3"></audio>
+                </div>
+                <div ID="A08"  class="song song1" class="song-item">
+                    <img  class="img" src="../static/img/Broken-but-Beautiful-Season-3-Hindi-2021-20210610131003-500x500.jpg" alt="">
+                    <p class="songname">Mere Liye</p>
+                    <p class="artist">AKHIL SACHDEVA</p>
+                    <audio controls
+onplay="pauseOthers(this)" src="../static/music/Mere Liye - Akhil Sachdeva.mp3"></audio>
+                </div>
+                <div ID="A09"  class="song song1" class="song-item">
+                    <img  class="img" src="../static/img/download (5).jpg" alt="">
+                    <p class="songname">Phiroon-Dhoondta-Maikada-Tauba-Tauba</p>
+                    <p class="artist">NUSRAT FATEH ALI KHAN</p>
+                    <audio controls
+onplay="pauseOthers(this)" src="../static/music/Phiroon-Dhoondta-Maikada-Tauba-Tauba-Nusrat-Fateh-Ali-Khan.mp3"></audio>
+                </div>
+                <div ID="A10"  class="song song1" class="song-item">
+                    <img  class="img" src="../static/img/download (3).jpeg" alt="">
+                    <p class="songname">Barsaat</p>
+                    <p class="artist">DARSHAN RAVAL</p>
+                    <audio controls
+onplay="pauseOthers(this)" src="../static/music/spotifydown.com - Barsaat.mp3"></audio>
+                </div>
+                <div ID="A11"  class="song song1" class="song-item">
+                    <img  class="img" src="../static/img/download55.jpg" alt="">
+                    <p class="songname">Dil Tod Diya</p>
+                    <p class="artist">MADHUR SHARMA</p>
+                    <audio controls
+onplay="pauseOthers(this)" src="../static/music/spotifydown.com - Dil Tod Diya.mp3"></audio>
+                </div>
+
+                <div ID="A00" class="song song1" class="song-item">
+                    <img  class="img" src="../static/img/download (5).jpeg" alt="">
+                    <p class="songname">DIL KO THUJPE PYAAR</p>
+                    <p class="artist">VISHAL MISHRA</p>
+                    <audio controls
+onplay="pauseOthers(this)" src="../static/music/Dil Ko Tujhpe Pyaar Vishal Mishra(MixJio.In).mp3"></audio>
+                </div>
+                <div ID="A13"  class="song song1" class="song-item">
+                    <img  class="img" src="../static/img/download (4).jpeg" alt="">
+                    <p class="songname">DIL TODNE KA RIWAZ</p>
+                    <p class="artist">MADHUR SHARMA</p>
+                    <audio controls
+onplay="pauseOthers(this)" src="../static/music/spotifydown.com - Dil Todne Ka Riwaz.mp3"></audio>
+                </div>
+                <div ID="A14"  class="song song1" class="song-item">
+                    <img  class="img" src="../static/img/download (2).jpeg" alt="">
+                    <p class="songname">mujhko dafna kr wo jab </p>
+                    <p class="artist">attahullah kan</p>
+                    <audio controls
+onplay="pauseOthers(this)" src="../static/music/spotifydown.com - Mujhko Dafna Kar Wo Jab.mp3"></audio>
+                </div>
+                <div ID="A15"  class="song song1" class="song-item">
+                    <img  class="img" src="../static/img/download (3).jpeg" alt="">
+                    <p class="songname">MUJHE Peene DO</p>
+                    <p class="artist">DARSHAN RAVAL</p>
+                    <audio controls
+onplay="pauseOthers(this)" src="../static/music/spotifydown.com - Mujhe Peene Do.mp3"></audio>
+                </div>
+                <div ID="A16"  class="song song1" class="song-item">
+                    <img  class="img" src="../static/img/download.jpeg" alt="">
+                    <p class="songname">lo Aayi Barsaat</p>
+                    <p class="artist">DARSHAN RAVAL</p>
+                    <audio controls
+onplay="pauseOthers(this)"src="../static/music/spotifydown.com - Lo Aayi Barsaat.mp3"></audio>
+                </div>
+                <div ID="A17"  class="song song1" class="song-item">
+                    <img  class="img" src="../static/img/Broken-but-Beautiful-Season-3-Hindi-2021-20210610131003-500x500.jpg" alt="">
+                    <p class="songname">tere naal</p>
+                    <p class="artist">akhil Sachdeva</p>
+                    <audio controls
+onplay="pauseOthers(this)" 
+src="../static/music/Tere Naal Broken But Beautiful Season 3 128 Kbps.mp3 "></audio>
+                </div>
+                <div ID="A18" class="song song1" class="song-item">
+                    <img  class="img" src="../static/img/download (1).jpg" alt="">
+                    <p class="songname">Yaaron sab  dua karo</p>
+                    <p class="artist">stebin ben</p>
+                    <audio controls
+onplay="pauseOthers(this)" src="../static/music/Yaaron Sab Dua Karo_192(PagalWorld.com.se).mp3"></audio>
+                </div>
+                <div ID="#A26" class="song song1" class="song-item">
+                    <img  class="img" src="../static/img/background.jpeg" alt="">
+                    <p class="songname">YEH JISM</p>
+                    <p class="artist">ALI AZMAT</p>
+                    <audio controls
+onplay="pauseOthers(this)" src="../static/music/Yeh Jism_192(Ghantalele.com).mp3"></audio>
+                </div>
+            </div>
+        </div>
+    </center>
+    </div>
+
+
+    <footer>
+        &copy; All rights reserved by 3S
+    </footer>
+    <script>
+        // Keep track of the current song index
+let currentSongIndex = 0;
+
+// Function to filter songs based on search input
+function search_animal() {
+    let input = document.getElementById('searchbar').value;
+    input = input.toLowerCase();
+    let x = document.getElementsByClassName('music');
+
+    for (i = 0; i < x.length; i++) {
+        if (!x[i].innerHTML.toLowerCase().includes(input)) {
+            x[i].style.display = "none";
+        } else {
+            x[i].style.display = "list-item";
+        }
+    }
+}
+
+// Function to pause all other audio elements
+function pauseOthers(elem) {
+    let audios = document.getElementsByTagName('audio');
+
+    for (let i = 0; i < audios.length; i++) {
+        if (audios[i] !== elem) {
+            audios[i].pause();
+        }
+    }
+}
+
+// Function to handle audio element time update event
+function onAudioTimeUpdate(elem) {
+    // If the current audio time is greater than or equal to the duration minus a small buffer (in seconds),
+    // it means the song has finished playing, so we can play the next song in the playlist
+    if (elem.currentTime >= elem.duration - 1) {
+        // Check if there is a next song
+        if (currentSongIndex < audios.length - 1) {
+            // Play the next song and update the current song index
+            audios[++currentSongIndex].play();
+        } else {
+            // If there is no next song, we can start playing from the beginning of the playlist
+            currentSongIndex = 0;
+            audios[currentSongIndex].play();
+        }
+    }
+}
+
+// Add time update event listener to each audio element
+let audios = document.getElementsByTagName('audio');
+for (let i = 0; i < audios.length; i++) {
+    audios[i].addEventListener('timeupdate', function () {
+        onAudioTimeUpdate(this);
+    });
+}
+
+</script>
+<script>
+    document.getElementById('searchForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      let query = document.getElementById('searchInput').value.trim();
+      if (query === '') {
+        alert('Please enter a search query');
+        return;
+      }
+      searchMusic(query);
+    });
+
+    function searchMusic(query) {
+      let apiKey = '40d639e75c6aea68759f6453fcedfb14';
+      let url = `https://ws.audioscrobbler.com/2.0/?method=track.search&track=${encodeURIComponent(query)}&api_key=${apiKey}&format=json`;
+      
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          displayResults(data.results.trackmatches.track);
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error);
+        });
+    }
+
+    function displayResults(tracks) {
+      let resultsDiv = document.getElementById('results');
+      resultsDiv.innerHTML = '';
+
+      if (tracks.length === 0) {
+        resultsDiv.innerHTML = '<p>No results found</p>';
+        return;
+      }
+
+      tracks.forEach(track => {
+        let songDiv = document.createElement('div');
+        songDiv.classList.add('song');
+        let image = track.image[0]['#text'] ? track.image[0]['#text'] : 'placeholder.png'; // Use a placeholder image if no image is available
+        let html = `
+          <img src="${image}" alt="${track.name}">
+          <span>${track.name} - ${track.artist}</span>
+        `;
+        songDiv.innerHTML = html;
+        resultsDiv.appendChild(songDiv);
+      });
+    }
+  </script>
+  </script>
+</body>
+</html>

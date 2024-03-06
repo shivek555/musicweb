@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Music Player</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>Spotify Music Player</h1>
+    
+    <input type="text" id="search-input" placeholder="Enter song name">
+    <button onclick="search()">Search</button>
+
+    <div id="results"></div>
+
+    <script>
+        function search() {
+            var query = document.getElementById('search-input').value;
+            $.ajax({
+                url: 'https://api.spotify.com/v1/search',
+                headers: {
+                    'Authorization': '2b45af29d7974ed6adecc600c8d99ef6'
+                },
+                data: {
+                    q: query,
+                    type: 'track',
+                    limit: 1
+                },
+                success: function(response) {
+                    var track = response.tracks.items[0];
+                    if (track) {
+                        var trackName = track.name;
+                        var artistName = track.artists[0].name;
+                        var previewUrl = track.preview_url;
+
+                        var resultDiv = document.getElementById('results');
+                        resultDiv.innerHTML = `
+                            <h2>${trackName} by ${artistName}</h2>
+                            <audio controls>
+                                <source src="${previewUrl}" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        `;
+                    } else {
+                        document.getElementById('results').innerHTML = "No results found";
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
+        }
+    </script>
+</body>
+</html>

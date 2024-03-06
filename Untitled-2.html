@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Music Player</title>
+<style>
+  /* Light mode styles */
+  body.light-mode {
+    background-color: #f4f4f4;
+    color: #333;
+  }
+
+  /* Dark mode styles */
+  body.dark-mode {
+    background-color: #333;
+    color: #f4f4f4;
+  }
+
+  .player {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  audio {
+    margin-bottom: 20px;
+  }
+  button {
+    margin: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  input[type="range"] {
+    width: 200px;
+    margin-bottom: 10px;
+  }
+  select {
+    margin-bottom: 10px;
+  }
+  .track-info {
+    margin-bottom: 10px;
+  }
+  .album-art {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    margin-bottom: 10px;
+  }
+  progress {
+    width: 100%;
+  }
+</style>
+</head>
+<body class="light-mode">
+<div class="player">
+  <audio id="audio" controls ontimeupdate="updateProgressBar()"></audio>
+  <div class="track-info">
+    <img id="albumArt" class="album-art" src="" alt="Album Art">
+    <div id="trackTitle"></div>
+    <div id="trackArtist"></div>
+    <div id="trackAlbum"></div>
+  </div>
+  <progress id="progressBar" max="1"></progress>
+  <div>
+    <button onclick="play()">Play</button>
+    <button onclick="pause()">Pause</button>
+    <button onclick="stop()">Stop</button>
+    <button onclick="prev()">Previous</button>
+    <button onclick="next()">Next</button>
+  </div>
+  <div>
+    <input type="file" id="fileInput" multiple accept="audio/*" onchange="loadFiles(event)">
+  </div>
+  <div>
+    <select id="playlistSelect" onchange="selectPlaylist()">
+      <option value="">Select Playlist</option>
+      <!-- Populate this dynamically -->
+    </select>
+  </div>
+  <div>
+    <button onclick="createPlaylist()">Create Playlist</button>
+    <button onclick="addToPlaylist()">Add to Playlist</button>
+    <button onclick="removeFromPlaylist()">Remove from Playlist</button>
+  </div>
+  <div>
+    <input type="range" min="0" max="1" step="0.01" value="1" id="volumeSlider" onchange="adjustVolume()">
+    <button onclick="toggleMute()">Mute</button>
+  </div>
+  <div>
+    <input type="text" id="searchInput" placeholder="Search..." oninput="search()">
+  </div>
+  <div id="searchResults"></div>
+  <div>
+    <input type="checkbox" id="shuffleCheckbox" onchange="toggleShuffle()"> Shuffle
+  </div>
+  <div>
+    <label for="repeatSelect">Repeat:</label>
+    <select id="repeatSelect" onchange="changeRepeatMode()">
+      <option value="none">None</option>
+      <option value="one">One</option>
+      <option value="all">All</option>
+    </select>
+  </div>
+  <div>
+    <label for="qualitySelect">Quality:</label>
+    <select id="qualitySelect" onchange="changeQuality()">
+      <option value="high">High</option>
+      <option value="medium">Medium</option>
+      <option value="low">Low</option>
+    </select>
+  </div>
+  <div>
+    <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
+  </div>
+</div>
+
+<script>
+  const audio = document.getElementById('audio');
+  const volumeSlider = document.getElementById('volumeSlider');
+  const fileInput = document.getElementById('fileInput');
+  const playlistSelect = document.getElementById('playlistSelect');
+  const trackTitleElem = document.getElementById('trackTitle');
+  const trackArtistElem = document.getElementById('trackArtist');
+  const trackAlbumElem = document.getElementById('trackAlbum');
+  const albumArtElem = document.getElementById('albumArt');
+  const progressBar = document.getElementById('progressBar');
+  const searchInput = document.getElementById('searchInput');
+  const searchResultsDiv = document.getElementById('searchResults');
+  const shuffleCheckbox = document.getElementById('shuffleCheckbox');
+  const repeatSelect = document.getElementById('repeatSelect');
+  const qualitySelect = document.getElementById('qualitySelect');
+  let playlists = {};
+  let currentPlaylist = null;
+  let currentSongIndex = 0;
+  let isMuted = false;
+  let prevVolume = 1;
+  let isShuffle = false;
+  let repeatMode = 'none';
+  let isDarkMode = false;
+
+  function play() {
+    audio.play();
+  }
+
+  function pause() {
+    audio.pause();
+  }
+
+  function stop() {
+    audio.pause();
+    audio.currentTime = 0;
+  }
+
+  function prev() {
+    currentSongIndex = (currentSongIndex - 1 + currentPlaylist.length) % currentPlaylist.length;
+    audio.src = currentPlaylist[currentSongIndex];
+    updateTrackInfo();
+    play();
+  }
+
+  function next() {
+    if (isShuffle) {
+      currentSongIndex = getRandomIndex(currentPlaylist.length);
+    } else {
+      currentSongIndex = (currentSongIndex + 1) % currentPlaylist.length;
+    }
+    audio.src = currentPlaylist[currentSongIndex];
+    updateTrackInfo();
+    play();
+  }
+
+  function loadFiles(event) {
+    const newSongs = [];
+    for (const file of event.target.files) {
+      const objectURL = URL.createObjectURL(file);
+      newSongs.push(objectURL);
+    }
+    if (currentPlaylist) {
+      currentPlaylist.push(...newSongs);
+    } else {
+      currentPlaylist = newSongs;
+    }
+    updatePlaylistSelect();
+  }
+
+  function adjustVolume() {
+    audio.volume = volumeSlider.value;
+    if (audio.volume === 0) {
+      toggleMuteIcon(true);
+    } else {
+      toggleMuteIcon(false);
+    }
+  }
+
+  function toggleMute() {
+    if (!isMuted) {
+      prevVolume = audio.volume;
+      audio.volume = 0;
+      toggleMuteIcon(true);
+      isMuted = true;
+    } else {
+      audio.volume = prevVolume;
+      toggleMuteIcon(false);
+      isMuted = false;
+    }
+  }
+
+  function toggleMuteIcon(isMuted) {
+    const muteButton = document.querySelector('button');
+    if (isMuted) {
+      muteButton.textContent = 'Unmute';
+    } else {
+      muteButton.textContent = 'Mute';
+    }
+  }
+
+  function createPlaylist() {
+    const playlistName = prompt("Enter playlist name:");
+    if (playlistName) {
+      playlists[playlistName] = [];
+      updatePlaylistSelect();
+    }
+  }
+
+  function addToPlaylist() {
+    const selectedPlaylistName = playlistSelect.value;
+    if (selectedPlaylistName) {
+      const selectedPlaylist = playlists[selectedPlaylistName];
+      if (selectedPlaylist) {
+        loadFiles(event);
+        selectedPlaylist.push(...currentPlaylist);
+        currentPlaylist = selectedPlaylist;
+      }
+    }
+  }
+
+  function removeFromPlaylist() {
+    const selectedPlaylistName = playlistSelect.value;
+    if (selectedPlaylistName) {
+      const selectedPlaylist = playlists[selectedPlaylistName];
+      if (selectedPlaylist) {
+        selectedPlaylist.splice(currentSongIndex, 1);
+        currentPlaylist = selectedPlaylist;
+        updatePlaylistSelect();
+      }
+    }
+  }
+
+  function selectPlaylist() {
+    const selectedPlaylistName = playlistSelect.value;
+    if (selectedPlaylistName) {
+      currentPlaylist = playlists[selectedPlaylistName];
+      currentSongIndex = 0;
+      audio.src = currentPlaylist[currentSongIndex];
+      updateTrackInfo();
+      play();
+    }
+  }
+
+  function updatePlaylistSelect() {
+    playlistSelect.innerHTML = '<option value="">Select Playlist</option>';
+    for (const playlistName in playlists) {
+      const option = document.createElement('option');
+      option.value = playlistName;
+      option.textContent = playlistName;
+      playlistSelect.appendChild(option);
+    }
+  }
+
+  function updateTrackInfo() {
+    const currentSongURL = currentPlaylist[currentSongIndex];
+    const fileName = currentSongURL.split('/').pop(); // Get the file name
+    const [artist, title] = fileName.split(' - '); // Split by ' - ' to get artist and title
+    trackTitleElem.textContent = `Title: ${title}`;
+    trackArtistElem.textContent = `Artist: ${artist}`;
+    trackAlbumElem.textContent = `Album: Unknown`; // Assuming album is not in the file name
+    albumArtElem.src = ''; // Reset album art
+
+    // You can load album art dynamically here if available
+    // For simplicity, let's leave it empty for now
+  }
+
+  function updateProgressBar() {
+    const duration = audio.duration;
+    const currentTime = audio.currentTime;
+    if (duration > 0) {
+      progressBar.value = currentTime / duration;
+    } else {
+      progressBar.value = 0;
+    }
+  }
+
+  function search() {
+    const query = searchInput.value.toLowerCase();
+    const matchedSongs = currentPlaylist.filter(song => {
+      const fileName = song.split('/').pop().toLowerCase(); // Get the file name
+      return fileName.includes(query);
+    });
+    displaySearchResults(matchedSongs);
+  }
+
+  function displaySearchResults(results) {
+    searchResultsDiv.innerHTML = '';
+    if (results.length === 0) {
+      searchResultsDiv.textContent = 'No matching songs found.';
+    } else {
+      results.forEach(song => {
+        const songElem = document.createElement('div');
+        const fileName = song.split('/').pop(); // Get the file name
+        songElem.textContent = fileName;
+        searchResultsDiv.appendChild(songElem);
+      });
+    }
+  }
+
+  function toggleShuffle() {
+    isShuffle = shuffleCheckbox.checked;
+    if (isShuffle) {
+      shufflePlaylist();
+    }
+  }
+
+  function shufflePlaylist() {
+    for (let i = currentPlaylist.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [currentPlaylist[i], currentPlaylist[j]] = [currentPlaylist[j], currentPlaylist[i]];
+    }
+  }
+
+  function getRandomIndex(max) {
+    return Math.floor(Math.random() * max);
+  }
+
+  function changeRepeatMode() {
+    repeatMode = repeatSelect.value;
+  }
+
+  function changeQuality() {
+    const selectedQuality = qualitySelect.value;
+    // Adjust the audio source URL based on selected quality
+    // For example, change the URL to a different bitrate version
+    // You need to have different versions of the audio file available for this to work
+  }
+
+  function handleEndOfSong() {
+    if (repeatMode === 'one') {
+      audio.currentTime = 0;
+      play();
+    } else if (repeatMode === 'all') {
+      next();
+    }
+  }
+
+  function toggleDarkMode() {
+    isDarkMode = !isDarkMode;
+    const body = document.body;
+    body.classList.toggle('dark-mode', isDarkMode);
+  }
+
+  audio.addEventListener('ended', handleEndOfSong);
+</script>
+</body>
+</html>

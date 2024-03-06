@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <!-- Combined styles -->
+    <link rel="stylesheet" href="../static/aa.css">
+    <link rel="icon" href="../static/img/OIG.jpeg">
+    <style>
+        .music {
+            display: list-item;
+        }
+
+        /* Light mode styles */
+        body.light-mode {
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        /* Dark mode styles */
+        body.dark-mode {
+            background-color: #333;
+            color: #f4f4f4;
+        }
+
+        .player {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        audio {
+            margin-bottom: 20px;
+        }
+
+        button {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        input[type="range"] {
+            width: 200px;
+            margin-bottom: 10px;
+        }
+
+        select {
+            margin-bottom: 10px;
+        }
+
+        .track-info {
+            margin-bottom: 10px;
+        }
+
+        .album-art {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+
+        progress {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body class="light-mode">
+    <div class="bg">
+        <!-- partial:index.partial.html -->
+        <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet" type="text/css" />
+        <div id="stars"></div>
+        <div id="stars"></div>
+        <div id="stars"></div>
+        <div id="stars"></div>
+        <div id="stars2"></div>
+        <div id="stars3"></div>
+    </div>
+
+    <div class="bigcontainer">
+        <!-- -------------MENU------------ -->
+        <div class="menu">
+            <div class="container" class="new_container">
+                <div class="menu_left">
+                    <div><img class="img1" src="../static/img/newLogo.png" style="height: 45PX; margin-top:3px"
+                            class="logo">
+                    </div>
+                </div>
+
+                <div class="menu_right">
+                    <ul>
+                        <li><a href="http://127.0.0.1:5000/login">Sign In</a></li>
+
+                        <li class="dropdown" id="list">
+                            <a class="dropbtn">Search</a>
+
+                            <div class="dropdown-content" style="overflow: scroll">
+                                <form id="form" role="search">
+                                    <input id="searchbar" onkeyup="search_animal()" type="text" name="search"
+                                        placeholder="Search song..">
+                                    <a href="#A20" class="music">THIS IS WHAT HEARTBREAK FEELS LIKE </a>
+                                    <a href="#A12" class="music">JAANE DE</a>
+                                    <a href="#A21" class="music">You broke me first</a>
+                                    <a href="#A19" class="music">MAA</a>
+                                    <a href="#A01" class="music">HUN JAAVAN</a>
+                                    <a href="#A22" class="music">SOMEONE YOU LOVED</a>
+                                    <a href="#A02" class="music">JAANE NA DUNGA KAHIN</a>
+                                    <a href="#A03" class="music">Kali-Kali-Zulfon-Ke</a>
+                                    <a href="#A04" class="music">KYON</a>
+                                    <a href="#A05" class="music">LAMBIYA JUDAIYAN</a>
+                                    <a href="#A06" class="music">LAUTE NAHI</a>
+                                    <a href="#A07" class="music">MEHERAM</a>
+                                    <a href="#A08" class="music">MERE LIYE</a>
+                                    <a href="#A09" class="music">Phiroon-Dhoondta-Maikada-Tauba-Tauba</a>
+                                    <a href="#A10" class="music">Barsaat</a>
+                                    <a href="#A11" class="music">DIL TOD DIYA</a>
+                                    <a href="#A00" class="music">DIL KO THUJPE PYAAR</a>
+                                </form>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- -------------CONTENT------------ -->
+
+        <div id="player" class="player">
+            <audio id="audio" controls></audio>
+            <div class="track-info">
+                <img id="album-art" class="album-art" src="../static/img/OIG.jpeg" alt="Album Art">
+                <h2 id="title"></h2>
+                <h3 id="artist"></h3>
+                <progress id="progress" value="0" max="100"></progress>
+            </div>
+            <div>
+                <button id="prev" onclick="prevTrack()">Previous</button>
+                <button id="playPause" onclick="togglePlayPause()">Play</button>
+                <button id="next" onclick="nextTrack()">Next</button>
+            </div>
+            <input type="range" id="seek-bar" value="0">
+            <br>
+            <select id="playlist" onchange="loadTrack()">
+                <option value="0">Dil Ko Thujpe Pyaar</option>
+                <option value="1">Hun Jaavan</option>
+                <option value="2">Jaane Na Dunga Kahin</option>
+                <option value="3">Kali Kali Zulfon Ke Phere</option>
+                <option value="4">Kyon</option>
+                <option value="5">Lambiya Judaiyan</option>
+                <option value="6">Laute Nahi</option>
+                <option value="7">Meheram</option>
+                <option value="8">Mere Liye</option>
+                <option value="9">Phiroon Dhoondta Maikada Tauba Tauba</option>
+                <option value="10">Barsaat</option>
+                <option value="11">Dil Tod Diya</option>
+                <option value="12">Jaane De</option>
+                <option value="13">This Is What Heartbreak Feels Like</option>
+                <option value="14">You Broke Me First</option>
+                <option value="15">Someone You Loved</option>
+            </select>
+            <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
+            <br>
+            <div>
+                <input type="text" id="newPlaylistName" placeholder="Enter playlist name">
+                <button onclick="createPlaylist()">Create Playlist</button>
+                <select id="existingPlaylists"></select>
+                <button onclick="deletePlaylist()">Delete Playlist</button>
+            </div>
+            <div>
+                <button onclick="addSongToPlaylist()">Add to Playlist</button>
+            </div>
+            <input type="file" id="fileInput" accept="audio/*">
+
+        </div>
+    </div>
+
+    <!-- Combined script -->
+    <script src="../static/script/audioPlayer.js"></script>
+    <script>
+        function toggleDarkMode() {
+            const body = document.body;
+            body.classList.toggle('dark-mode');
+        }
+
+        function createPlaylist() {
+            const playlistNameInput = document.getElementById("newPlaylistName");
+            const playlistName = playlistNameInput.value;
+            if (playlistName.trim() === "") {
+                alert("Please enter a valid playlist name.");
+                return;
+            }
+            const existingPlaylists = document.getElementById("existingPlaylists");
+            const option = document.createElement("option");
+            option.value = playlistName;
+            option.textContent = playlistName;
+            existingPlaylists.appendChild(option);
+            playlistNameInput.value = "";
+        }
+
+        function deletePlaylist() {
+            const existingPlaylists = document.getElementById("existingPlaylists");
+            const selectedPlaylistIndex = existingPlaylists.selectedIndex;
+            if (selectedPlaylistIndex !== -1) {
+                existingPlaylists.remove(selectedPlaylistIndex);
+            } else {
+                alert("Please select a playlist to delete.");
+            }
+        }
+
+        function addSongToPlaylist() {
+            const selectedSongIndex = document.getElementById("playlist").selectedIndex;
+            const selectedPlaylistIndex = document.getElementById("existingPlaylists").selectedIndex;
+            if (selectedSongIndex !== -1 && selectedPlaylistIndex !== -1) {
+                const selectedSong = document.getElementById("playlist").options[selectedSongIndex].text;
+                const selectedPlaylist = document.getElementById("existingPlaylists").options[selectedPlaylistIndex].text;
+                alert(`Added "${selectedSong}" to playlist "${selectedPlaylist}".`);
+                // Here you can add code to actually add the song to the playlist
+            } else {
+                alert("Please select a song and a playlist.");
+            }
+        }
+        // Function to play local music
+function playLocalMusic(file) {
+    audioElement.src = URL.createObjectURL(file);
+    audioElement.play();
+}
+
+// Event listener for file input change
+fileInput.addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if (file) {
+        playLocalMusic(file);
+    }
+});
+
+
+    </script>
+</body>
+
+</html>
