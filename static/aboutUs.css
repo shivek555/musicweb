@@ -1,0 +1,332 @@
+@import url("https://fonts.googleapis.com/css2?family=Figtree&display=swap");
+
+* {
+  scroll-behavior: smooth;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Abril Fatface", cursive;
+  color: white;
+  background-color: #121212;
+}
+
+body::-webkit-scrollbar {
+  width: 5px;
+  background-color: #121212;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.613);
+  border-radius: 20px;
+}
+
+body::-webkit-scrollbar-button {
+  background-color: #121212;
+}
+
+::selection {
+  background-color: rgba(255, 255, 255, 0.71);
+  color: rgba(0, 0, 0, 0.834);
+}
+
+a {
+  text-decoration: none;
+  font-family: monospace;
+  margin: 0;
+  padding: 0;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+}
+
+/* ---------------------HEADER---------------------- */
+header {
+  padding: 7px 0px;
+  /* background-color: rgb(4, 73, 73); */
+  border-bottom: 0.00001px solid rgba(255, 255, 255, 0.359);
+}
+
+.logo {
+  /* border: 2px solid red; */
+  display: flex;
+  align-items: center;
+}
+
+.logo a {
+  font-size: 30px;
+  font-weight: 900;
+  font-family: "Abril Fatface", cursive;
+  color: white;
+}
+
+header .menu a {
+  color: white;
+  font-size: 15px;
+  letter-spacing: 2px;
+  padding: 15px;
+  transition: all 0.2s;
+}
+
+header .menu a:hover {
+  background-color: rgba(135, 181, 181, 0.46);
+  background-color: #393939;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 0px;
+}
+
+/* ---------------------SLOGAN-------------------------------- */
+.slogan {
+  /* border: 2px solid red; */
+  padding: 124px 60px;
+  color: rgba(255, 255, 255, 0.644);
+}
+
+.slogan .container {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* margin: 35px; */
+}
+
+.slogan p {
+  font-size: 60px;
+  text-align: center;
+  font-family: "Playfair Display", serif;
+}
+
+.slogan a {
+  margin-top: 45px;
+  text-align: center;
+  color: rgb(3, 63, 63);
+  color: #121212;
+  background-color: white;
+  width: max-content;
+  font-size: 20px;
+  padding: 10px 30px;
+  transition: all 0.2s;
+}
+
+.slogan a:hover {
+  background-color: rgba(0, 181, 181, 0.443);
+  background-color: rgba(44, 44, 44, 0.467);
+  color: white;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.683);
+}
+
+.highlight {
+  color: rgb(255, 255, 255);
+}
+
+/* ----------------------WHAT WE DO------------------------------ */
+.work {
+  padding-bottom: 100px;
+  padding-top: 55px;
+}
+
+.work .container {
+  flex-direction: column;
+}
+
+.work .heading {
+  font-size: 45px;
+}
+
+.work .desc {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 20px;
+  margin-top: 13px;
+}
+
+.work_desc {
+  display: flex;
+  margin-top: 50px;
+  gap: 40px;
+  gap: 4vmin;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.work .box {
+  padding: 50px 40px;
+  /* width: 400px; */
+  width: 59vmin;
+  background-color: rgba(255, 255, 255, 0.123);
+  transition: all 0.2s;
+}
+
+.work .box .title {
+  font-size: 20px;
+  font-weight: 600;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.work .box .title_desc {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin-top: 10px;
+  color: rgb(216, 216, 216);
+}
+
+.work .box:hover {
+  background-color: rgba(174, 174, 174, 0.402);
+  color: rgb(255, 255, 255);
+  transform: translateY(-10px);
+}
+
+/* ------------------------OUR TEAM MEMBERS------------------------- */
+.team_heading {
+  margin-bottom: 50px;
+  font-size: 50px;
+  font-weight: 200;
+}
+
+.new_container {
+  margin: auto;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  gap: 1em;
+  width: 800px;
+  height: 500px;
+  transition: all 400ms;
+}
+
+.new_container:hover .box {
+  filter: grayscale(100%) opacity(24%);
+}
+
+.new_container .box {
+  position: relative;
+  background: var(--img) center center;
+  background-size: cover;
+  transition: all 400ms;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  filter: grayscale(40%);
+}
+
+.box {
+  left: 130px;
+}
+
+.new_container .box:hover {
+  filter: grayscale(0%) opacity(100%);
+}
+
+.new_container:has(.box-1:hover) {
+  grid-template-columns: 3fr 1fr 1fr 1fr 1fr;
+}
+
+.new_container:has(.box-2:hover) {
+  grid-template-columns: 1fr 3fr 1fr 1fr 1fr;
+}
+
+.new_container:has(.box-3:hover) {
+  grid-template-columns: 1fr 1fr 3fr 1fr 1fr;
+}
+
+.new_container:has(.box-4:hover) {
+  grid-template-columns: 1fr 1fr 1fr 3fr 1fr;
+}
+
+.new_container:has(.box-5:hover) {
+  grid-template-columns: 1fr 1fr 1fr 1fr 3fr;
+}
+
+.new_container .box:nth-child(odd) {
+  transform: translateY(-16px);
+}
+
+.new_container .box:nth-child(even) {
+  transform: translateY(16px);
+}
+
+.new_container .box::after {
+  content: attr(data-text);
+  position: absolute;
+  bottom: 20px;
+  background: #000;
+  background-color: #121212;
+  color: #fff;
+  padding: 10px 10px 10px 14px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  transform: translateY(60px);
+  opacity: 0;
+  transition: all 160ms;
+  font-family: monospace;
+  font-size: 16px;
+}
+
+.new_container .box:hover::after {
+  transform: translateY(0);
+  opacity: 1;
+  transition-delay: 400ms;
+}
+
+/* -----------------------CONTACT US--------------------- */
+.contact_info .container {
+  flex-direction: column;
+}
+
+.contact_info {
+  margin-top: 100px;
+  padding: 20px;
+  background-color: #3d3d3d;
+  background-color: #0a0a0acd;
+  color: #131313;
+  color: rgba(255, 255, 255, 0.514);
+  color: rgb(153, 153, 153);
+}
+
+.contact_heading {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+  font-size: 50px;
+  margin-bottom: 25px;
+  padding-bottom: 10px;
+}
+
+.social_media {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: space-between;
+}
+
+.sm {
+  width: 500px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 20px;
+  padding: 10px;
+  font-weight: 700;
+}
+
+.sm:hover {
+  background-color: #9c9c9c49;
+}
+
+.sm i {
+  margin-right: 10px;
+}
+
+.smg i {
+  margin-right: 16px;
+}
+
+/* ----------------------------------------------------------------------------------- */
